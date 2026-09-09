@@ -2044,7 +2044,7 @@
       <div class="brand-logo">AWS</div>
       <div class="brand-title">
         Flashcards & Simulado
-        <span class="badge">Oficial</span>
+        <span class="badge">Estudos</span>
       </div>
     </div>
 
@@ -2087,6 +2087,9 @@
 
       <div class="sidebar-categories-list" id="sidebar-categories-container">
         <!-- Rendered dynamically -->
+      </div>
+      <div style="padding: 14px 16px; font-size: 0.75rem; color: var(--text-subtle); border-top: 1px solid var(--border-color); text-align: center; line-height: 1.4;">
+        📖 Projeto educacional independente de estudos para certificações AWS. Não oficial e não afiliado à Amazon Web Services.
       </div>
     </aside>
 
@@ -3257,7 +3260,7 @@
             <div class="q-explanation-box ${isCorrect ? '' : 'is-wrong'}">
               <div class="q-explanation-title">
                 ${isCorrect ? '✅ Resposta Correta!' : '❌ Incorreto.'}
-                <span>(Gabarito Oficial: Opção ${letters[q.correct]})</span>
+                <span>(Gabarito: Opção ${letters[q.correct]})</span>
               </div>
               <div>${q.explanation}</div>
             </div>
@@ -3416,7 +3419,7 @@
 
       const feedback = document.getElementById('result-summary-feedback');
       if (isPass) {
-        feedback.textContent = `Excelente desempenho! Você atingiu ${pct}%, superando a nota de corte recomendada para exames da AWS (70%). Abaixo você confere o gabarito oficial com a explicação detalhada de cada questão.`;
+        feedback.textContent = `Excelente desempenho! Você atingiu ${pct}%, superando a nota de corte recomendada para exames da AWS (70%). Abaixo você confere o gabarito com a explicação detalhada de cada questão.`;
       } else {
         feedback.textContent = `Você alcançou ${pct}% de aproveitamento. A pontuação mínima para aprovação é 70%. Analise as explicações das questões abaixo e utilize os flashcards para reforçar os assuntos pendentes!`;
       }
