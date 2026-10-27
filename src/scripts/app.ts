@@ -319,8 +319,6 @@ function selectCategory(catId: string): void {
   if (domainEl) domainEl.innerHTML = `${category.domainIcon} ${category.domain}`;
   const titleEl = document.getElementById('cat-banner-title');
   if (titleEl) titleEl.textContent = category.title;
-  const fileEl = document.getElementById('cat-banner-file');
-  if (fileEl) fileEl.textContent = category.file;
   const countEl = document.getElementById('cat-banner-count');
   if (countEl) countEl.textContent = String(category.cardCount);
   const descEl = document.getElementById('cat-banner-desc');
