@@ -86,6 +86,12 @@ function toggleSidebar(e?: Event): void {
     if (backdrop) {
       backdrop.classList.toggle('open', isOpen);
     }
+    if (isOpen) {
+      setTimeout(() => {
+        const activeEl = document.getElementById(`cat-nav-${currentCategoryId}`);
+        activeEl?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }, 60);
+    }
   }
 }
 
@@ -94,16 +100,40 @@ document.addEventListener('click', (e: MouseEvent) => {
   const sb = document.getElementById('app-sidebar');
   const target = e.target as HTMLElement | null;
   if (sb && window.innerWidth <= 960 && sb.classList.contains('open')) {
-    if (target && !sb.contains(target) && !target.closest('.mobile-menu-btn') && !target.closest('#nav-btn-categories')) {
+    if (
+      target &&
+      !sb.contains(target) &&
+      !target.closest('.mobile-menu-btn') &&
+      !target.closest('#nav-btn-categories') &&
+      !target.closest('.mobile-cat-picker-btn')
+    ) {
       closeSidebarMobile();
     }
   }
 });
 
+// Reset instantâneo de todos os scrollers/ancestrais para o topo
+function resetViewport(): void {
+  const targets: (Element | null)[] = [
+    document.getElementById('main-content'),
+    document.querySelector('.app-layout'),
+    document.body,
+    document.scrollingElement
+  ];
+  targets.forEach(el => {
+    if (el) {
+      el.scrollTop = 0;
+      el.scrollLeft = 0;
+    }
+  });
+}
+
 // Navigation Tabs
 function setNavTab(activeTab: 'categories' | 'allcards' | 'simulado' | 'favorites'): void {
   document.querySelectorAll('.nav-tab-btn').forEach(btn => btn.classList.remove('active'));
   document.querySelectorAll('.view-container').forEach(view => view.classList.remove('active'));
+
+  resetViewport();
   
   if (activeTab === 'categories') {
     document.getElementById('nav-btn-categories')?.classList.add('active');
@@ -124,6 +154,8 @@ function setNavTab(activeTab: 'categories' | 'allcards' | 'simulado' | 'favorite
     closeSidebarMobile();
     renderFavorites();
   }
+
+  requestAnimationFrame(resetViewport);
 }
 
 function navigateToCategoriesView(): void {
@@ -217,6 +249,50 @@ function renderSidebarCategories(filterText: string = ''): void {
     emptyDiv.textContent = `Nenhum assunto encontrado para "${filterText}".`;
     container.appendChild(emptyDiv);
   }
+
+  renderMobileCategoryChips();
+}
+
+function formatShortCategoryTitle(rawTitle: string): string {
+  return rawTitle
+    .replace(/^(Flashcards de Revisão|Flashcards Técnicos|Flashcards Completos|Flashcards|Conceitos|Módulo \d+|Módulo|Revisão)\s*[-:]\s*/i, '')
+    .trim();
+}
+
+function renderMobileCategoryChips(): void {
+  const currentIdx = APP_CATEGORIES.findIndex(c => c.id === currentCategoryId);
+  const currentCat = APP_CATEGORIES[currentIdx >= 0 ? currentIdx : 0];
+  const metaEl = document.getElementById('mobile-cat-picker-meta');
+  if (metaEl && currentCat) {
+    metaEl.textContent = `${currentCat.domainIcon || '📂'} Módulo ${(currentIdx >= 0 ? currentIdx : 0) + 1} de ${APP_CATEGORIES.length} • ${currentCat.domain}`;
+  }
+  const titleEl = document.getElementById('mobile-cat-picker-title');
+  if (titleEl && currentCat) {
+    titleEl.textContent = currentCat.title;
+  }
+
+  const chipsContainer = document.getElementById('mobile-category-chips');
+  if (!chipsContainer) return;
+  chipsContainer.innerHTML = '';
+
+  APP_CATEGORIES.forEach((cat, idx) => {
+    const isCurrent = cat.id === currentCategoryId;
+    const allStudied = cat.cards.every((card, cIdx) => userState.studiedCards[getCardKey(cat.id, card, cIdx)]);
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = `mobile-cat-chip ${isCurrent ? 'active' : ''}`;
+    btn.id = `mobile-chip-${cat.id}`;
+    btn.onclick = () => selectCategory(cat.id);
+
+    const shortTitle = formatShortCategoryTitle(cat.title);
+    btn.innerHTML = `
+      <span class="chip-num">${idx + 1}</span>
+      <span class="chip-label">${shortTitle}</span>
+      ${allStudied ? '<span class="cat-studied-dot" title="Módulo concluído"></span>' : ''}
+    `;
+    chipsContainer.appendChild(btn);
+  });
 }
 
 function filterCategoriesList(text: string): void {
@@ -254,10 +330,23 @@ function selectCategory(catId: string): void {
   renderCategoryCards(category);
   updateCarouselCard();
   setCategoryDisplayMode(currentCategoryMode);
+  renderMobileCategoryChips();
+
+  setTimeout(() => {
+    const activeChip = document.getElementById(`mobile-chip-${catId}`);
+    const chips = activeChip?.parentElement;
+    if (activeChip && chips) {
+      const chipRect = activeChip.getBoundingClientRect();
+      const boxRect = chips.getBoundingClientRect();
+      chips.scrollTo({
+        left: chips.scrollLeft + (chipRect.left - boxRect.left) - (chips.clientWidth - chipRect.width) / 2,
+        behavior: 'smooth'
+      });
+    }
+  }, 50);
 
   // Scroll to top of main content
-  const mainContent = document.getElementById('main-content');
-  if (mainContent) mainContent.scrollTop = 0;
+  resetViewport();
 
   // Update footer navigation
   const idx = APP_CATEGORIES.findIndex(c => c.id === catId);
@@ -799,7 +888,6 @@ function initSimulado(): void {
   if (userState.simuladoTimeSeconds && timerSeconds === 0) {
     timerSeconds = userState.simuladoTimeSeconds;
   }
-  renderSimuladoMatrix();
   renderSimuladoQuestions();
   updateSimuladoProgress();
 
@@ -832,42 +920,6 @@ function updateTimerDisplay(): void {
   const str = `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
   const el = document.getElementById('timer-text');
   if (el) el.textContent = str;
-}
-
-function renderSimuladoMatrix(): void {
-  const matrix = document.getElementById('simulado-matrix-grid');
-  if (!matrix) return;
-  matrix.innerHTML = '';
-
-  APP_QUESTIONS.forEach((q, idx) => {
-    const btn = document.createElement('button');
-    btn.className = 'matrix-btn';
-    btn.id = `matrix-btn-${q.id}`;
-    btn.textContent = String(idx + 1);
-    btn.title = `Questão ${idx + 1}: ${q.category}`;
-    
-    const isAnswered = userState.simuladoAnswers[q.id] !== undefined;
-    if (isAnswered) btn.classList.add('answered');
-
-    if (userState.simuladoCompleted) {
-      const userChoice = userState.simuladoAnswers[q.id];
-      if (userChoice === q.correct) btn.classList.add('correct');
-      else btn.classList.add('incorrect');
-    }
-
-    btn.onclick = () => {
-      if (simuladoFilterMode !== 'all') {
-        filterSimuladoView('all');
-      }
-      setTimeout(() => {
-        const qEl = document.getElementById(`question-card-${q.id}`);
-        if (qEl) {
-          qEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }, 50);
-    };
-    matrix.appendChild(btn);
-  });
 }
 
 function renderSimuladoQuestions(): void {
@@ -961,10 +1013,6 @@ function selectQuestionOption(qId: number, optionIdx: number): void {
     });
   }
 
-  // Update matrix indicator
-  const matrixBtn = document.getElementById(`matrix-btn-${qId}`);
-  if (matrixBtn) matrixBtn.classList.add('answered');
-
   updateSimuladoProgress();
 
   // CHECK IF ALL QUESTIONS HAVE BEEN ANSWERED!
@@ -987,8 +1035,6 @@ function updateSimuladoProgress(): void {
   if (pctEl) pctEl.textContent = `${pct}%`;
   const pendEl = document.getElementById('sim-pending-count');
   if (pendEl) pendEl.textContent = `${totalQ - totalAnswered}`;
-  const matEl = document.getElementById('matrix-status-summary');
-  if (matEl) matEl.textContent = `${totalAnswered} de ${totalQ} respondidas`;
   const botEl = document.getElementById('bottom-bar-progress');
   if (botEl) botEl.textContent = `${totalAnswered}/${totalQ} respondidas (${pct}%)`;
 }
@@ -1023,7 +1069,6 @@ function finishSimuladoNow(): void {
   saveState();
 
   showSimuladoResults();
-  renderSimuladoMatrix();
   renderSimuladoQuestions();
 
   // Smooth scroll to results
@@ -1142,7 +1187,7 @@ function restartFullSimulado(): void {
 
       document.getElementById('simulado-results-screen')?.classList.remove('active');
       initSimulado();
-      document.getElementById('view-simulado')?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('main-content')?.scrollTo({ top: 0, behavior: 'smooth' });
     }
   );
 }
@@ -1161,7 +1206,7 @@ function retryOnlyWrongQuestions(): void {
   document.getElementById('simulado-results-screen')?.classList.remove('active');
   initSimulado();
   filterSimuladoView('pending');
-  document.getElementById('view-simulado')?.scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('main-content')?.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function confirmResetSimulado(): void {

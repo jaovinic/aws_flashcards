@@ -2,6 +2,20 @@
 ---
 <!-- VIEW 1: CATEGORY FLASHCARDS VIEW -->
 <section class="view-container active" id="view-category">
+  <!-- Mobile Category Quick Navbar -->
+  <div class="mobile-category-navbar">
+    <button class="mobile-cat-picker-btn" type="button" onclick="window.toggleSidebar(event)">
+      <div class="mobile-cat-picker-info">
+        <span class="mobile-cat-picker-eyebrow" id="mobile-cat-picker-meta">📂 Módulo 1 de 38 • Redes & Entrega de Conteúdo</span>
+        <span class="mobile-cat-picker-current" id="mobile-cat-picker-title">Flashcards: Amazon API Gateway</span>
+      </div>
+      <span class="mobile-cat-picker-action">Trocar ▾</span>
+    </button>
+    <div class="mobile-category-chips" id="mobile-category-chips" aria-label="Navegação rápida de categorias">
+      <!-- Rendered dynamically -->
+    </div>
+  </div>
+
   <div class="category-banner">
     <div class="cat-domain-tag" id="cat-banner-domain">
       💻 Computação & Contêineres

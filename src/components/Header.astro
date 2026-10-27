@@ -13,16 +13,32 @@
 
   <nav class="header-nav">
     <button class="nav-tab-btn active" id="nav-btn-categories" onclick="window.navigateToCategoriesView()">
-      📂 Categorias
+      <span class="nav-tab-top">
+        <span class="nav-tab-icon">📂</span>
+        <span class="badge-count nav-badge-mobile-only">38</span>
+      </span>
+      <span class="nav-tab-label">Categorias</span>
     </button>
     <button class="nav-tab-btn" id="nav-btn-allcards" onclick="window.navigateToAllCardsView()">
-      🔍 Todos os Cards <span class="badge-count">246</span>
+      <span class="nav-tab-top">
+        <span class="nav-tab-icon">🔍</span>
+        <span class="badge-count">246</span>
+      </span>
+      <span class="nav-tab-label">Todos os Cards</span>
     </button>
     <button class="nav-tab-btn" id="nav-btn-simulado" onclick="window.navigateToSimuladoView()">
-      📝 Simulado <span class="badge-count">50</span>
+      <span class="nav-tab-top">
+        <span class="nav-tab-icon">📝</span>
+        <span class="badge-count">50</span>
+      </span>
+      <span class="nav-tab-label">Simulado</span>
     </button>
     <button class="nav-tab-btn" id="nav-btn-favorites" onclick="window.navigateToFavoritesView()">
-      ⭐ Marcados (<span id="fav-count-badge">0</span>)
+      <span class="nav-tab-top">
+        <span class="nav-tab-icon">⭐</span>
+        <span class="badge-count" id="fav-count-badge">0</span>
+      </span>
+      <span class="nav-tab-label">Marcados</span>
     </button>
   </nav>
 
