@@ -1595,6 +1595,7 @@ main.main-content {
   margin-bottom: 20px;
   box-shadow: var(--shadow-sm);
   transition: border-color 0.2s;
+  scroll-margin-bottom: 100px;
 }
 
 .question-card:hover {
@@ -1735,6 +1736,10 @@ main.main-content {
   display: flex;
   align-items: center;
   gap: 6px;
+}
+
+#simulado-questions-list {
+  padding-bottom: 96px;
 }
 
 /* Simulado Sticky Bottom Bar */
@@ -1993,6 +1998,10 @@ main.main-content {
 
   main.main-content {
     padding: 16px;
+  }
+
+  #simulado-questions-list {
+    padding-bottom: 110px;
   }
 
   .simulado-bottom-bar {

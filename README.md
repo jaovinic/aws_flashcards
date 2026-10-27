@@ -27,7 +27,7 @@ O **AWS Flashcards Hub** reúne em um único lugar mais de duas centenas de cart
 │                        AWS FLASHCARDS HUB                              │
 ├───────────────────┬───────────────────────────────┬────────────────────┤
 │  📂 CATEGORIAS    │  🔍 BUSCA GLOBAL             │  📝 SIMULADO       │
-│  38 módulos em    │  Pesquisa em tempo real       │  36 questões com   │
+│  38 módulos em    │  Pesquisa em tempo real       │  50 questões com   │
 │  7 domínios       │  por termos, siglas e serviços│  gabarito e tempo  │
 └───────────────────┴───────────────────────────────┴────────────────────┘
 ```
@@ -49,7 +49,7 @@ O **AWS Flashcards Hub** reúne em um único lugar mais de duas centenas de cart
 
 ### 📝 Simulado Completo com Avaliação Instantânea
 
-- **36 Questões Objetivas** no padrão dos exames de certificação.
+- **50 Questões Objetivas** no padrão dos exames de certificação.
 - **Cronômetro Ativo** para simular a gestão de tempo da prova real.
 - **Nota de Corte Automatizada (70%)** com mensagem contextual de feedback.
 - **Diagnóstico por Domínio Técnico:** Gráficos/barras de precisão discriminando pontos fortes e tópicos a reforçar.
