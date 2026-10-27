@@ -2,7 +2,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://jaovinic.github.io',
-  base: '/aws_flashcards',
+  site: 'https://flashcards.jvtech.dev.br',
   output: 'static',
 });
