@@ -72,10 +72,21 @@ function toggleTheme(): void {
   saveState();
 }
 
+function closeSidebarMobile(): void {
+  document.getElementById('app-sidebar')?.classList.remove('open');
+  document.getElementById('sidebar-backdrop')?.classList.remove('open');
+}
+
 function toggleSidebar(e?: Event): void {
   if (e) e.stopPropagation();
   const sb = document.getElementById('app-sidebar');
-  if (sb) sb.classList.toggle('open');
+  const backdrop = document.getElementById('sidebar-backdrop');
+  if (sb) {
+    const isOpen = sb.classList.toggle('open');
+    if (backdrop) {
+      backdrop.classList.toggle('open', isOpen);
+    }
+  }
 }
 
 // Close sidebar on mobile when clicking outside
@@ -83,8 +94,8 @@ document.addEventListener('click', (e: MouseEvent) => {
   const sb = document.getElementById('app-sidebar');
   const target = e.target as HTMLElement | null;
   if (sb && window.innerWidth <= 960 && sb.classList.contains('open')) {
-    if (target && !sb.contains(target) && !target.closest('.mobile-menu-btn')) {
-      sb.classList.remove('open');
+    if (target && !sb.contains(target) && !target.closest('.mobile-menu-btn') && !target.closest('#nav-btn-categories')) {
+      closeSidebarMobile();
     }
   }
 });
@@ -100,22 +111,30 @@ function setNavTab(activeTab: 'categories' | 'allcards' | 'simulado' | 'favorite
   } else if (activeTab === 'allcards') {
     document.getElementById('nav-btn-allcards')?.classList.add('active');
     document.getElementById('view-allcards')?.classList.add('active');
+    closeSidebarMobile();
     renderAllCards();
   } else if (activeTab === 'simulado') {
     document.getElementById('nav-btn-simulado')?.classList.add('active');
     document.getElementById('view-simulado')?.classList.add('active');
+    closeSidebarMobile();
     initSimulado();
   } else if (activeTab === 'favorites') {
     document.getElementById('nav-btn-favorites')?.classList.add('active');
     document.getElementById('view-favorites')?.classList.add('active');
+    closeSidebarMobile();
     renderFavorites();
   }
 }
 
 function navigateToCategoriesView(): void {
+  const isAlreadyCategoryView = document.getElementById('view-category')?.classList.contains('active');
   setNavTab('categories');
   if (window.innerWidth <= 960) {
-    document.getElementById('app-sidebar')?.classList.remove('open');
+    if (isAlreadyCategoryView) {
+      toggleSidebar();
+    } else {
+      closeSidebarMobile();
+    }
   }
 }
 
@@ -174,7 +193,7 @@ function renderSidebarCategories(filterText: string = ''): void {
       item.onclick = () => {
         selectCategory(cat.id);
         if (window.innerWidth <= 960) {
-          document.getElementById('app-sidebar')?.classList.remove('open');
+          closeSidebarMobile();
         }
       };
 
@@ -207,8 +226,7 @@ function filterCategoriesList(text: string): void {
 function selectCategory(catId: string): void {
   setNavTab('categories');
   if (window.innerWidth <= 960) {
-    const sb = document.getElementById('app-sidebar');
-    if (sb) sb.classList.remove('open');
+    closeSidebarMobile();
   }
   currentCategoryId = catId;
   carouselCardIndex = 0;
