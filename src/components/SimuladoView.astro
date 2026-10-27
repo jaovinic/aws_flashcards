@@ -1,0 +1,140 @@
+---
+---
+<!-- VIEW 4: SIMULADO VIEW -->
+<section class="view-container" id="view-simulado">
+  
+  <!-- Results Screen (Shown upon completion) -->
+  <div class="simulado-results-screen" id="simulado-results-screen">
+    <div class="result-score-hero">
+      <div class="result-badge-status pass" id="result-status-badge">
+        APROVADO 🏆
+      </div>
+      
+      <div class="result-score-number" id="result-score-display">
+        0<span>/36</span>
+      </div>
+      
+      <div class="result-summary-text" id="result-summary-feedback">
+        Parabéns! Você alcançou a pontuação recomendada para o exame de certificação AWS.
+      </div>
+
+      <div class="result-metrics-row">
+        <div class="result-metric-card">
+          <div class="result-metric-val" id="result-metric-percent">0%</div>
+          <div class="result-metric-label">Aproveitamento</div>
+        </div>
+        <div class="result-metric-card">
+          <div class="result-metric-val" id="result-metric-correct">0</div>
+          <div class="result-metric-label">Acertos</div>
+        </div>
+        <div class="result-metric-card">
+          <div class="result-metric-val" id="result-metric-wrong">0</div>
+          <div class="result-metric-label">Erros</div>
+        </div>
+        <div class="result-metric-card">
+          <div class="result-metric-val" id="result-metric-time">00:00</div>
+          <div class="result-metric-label">Tempo Gasto</div>
+        </div>
+      </div>
+
+      <!-- Domain Performance Breakdown -->
+      <div class="domain-breakdown-card" id="domain-breakdown-container">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div class="result-actions-row">
+        <button class="btn btn-primary" onclick="window.restartFullSimulado()">
+          🔄 Refazer Simulado Completo
+        </button>
+        <button class="btn" id="btn-retry-wrong" onclick="window.retryOnlyWrongQuestions()">
+          🎯 Refazer Apenas as Questões Erradas
+        </button>
+        <button class="btn btn-outline" onclick="window.scrollToReviewQuestions()">
+          📖 Revisar Questões Comentadas
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Simulado Active Header -->
+  <div class="simulado-header-card" id="simulado-header-card">
+    <div class="simulado-title-row">
+      <div>
+        <h1>📝 Simulado Geral AWS</h1>
+        <p style="color: var(--text-muted); margin-top: 6px;">
+          36 questões de múltipla escolha baseadas em todos os 38 arquivos de flashcards. O resultado e correção detalhada são exibidos imediatamente ao responder a última questão!
+        </p>
+      </div>
+      <div class="simulado-timer" id="simulado-timer-display" title="Tempo decorrido">
+        ⏱️ <span id="timer-text">00:00</span>
+      </div>
+    </div>
+
+    <div class="simulado-stats-grid">
+      <div class="sim-stat-box">
+        <div class="sim-stat-value" id="sim-answered-count">0/36</div>
+        <div class="sim-stat-label">Respondidas</div>
+      </div>
+      <div class="sim-stat-box">
+        <div class="sim-stat-value" id="sim-progress-percent">0%</div>
+        <div class="sim-stat-label">Concluído</div>
+      </div>
+      <div class="sim-stat-box">
+        <div class="sim-stat-value">70%</div>
+        <div class="sim-stat-label">Nota de Corte</div>
+      </div>
+      <div class="sim-stat-box">
+        <div class="sim-stat-value" id="sim-pending-count">36</div>
+        <div class="sim-stat-label">Pendentes</div>
+      </div>
+    </div>
+
+    <!-- Question Filters Bar -->
+    <div class="sim-filter-bar">
+      <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Exibir:</span>
+      <button class="sim-filter-btn active" id="sim-filter-all" onclick="window.filterSimuladoView('all')">
+        Todas (36)
+      </button>
+      <button class="sim-filter-btn" id="sim-filter-pending" onclick="window.filterSimuladoView('pending')">
+        Apenas Pendentes
+      </button>
+      <button class="sim-filter-btn" id="sim-filter-answered" onclick="window.filterSimuladoView('answered')">
+        Apenas Respondidas
+      </button>
+    </div>
+
+    <!-- Question Matrix Navigator -->
+    <div class="matrix-box">
+      <div class="matrix-title">
+        <span>Mapa de Questões (Clique para saltar para o item):</span>
+        <span id="matrix-status-summary">0 de 36</span>
+      </div>
+      <div class="matrix-grid" id="simulado-matrix-grid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Questions List Container -->
+  <div id="simulado-questions-list">
+    <!-- Rendered dynamically -->
+  </div>
+
+  <!-- Sticky Bottom Action Bar for Simulado -->
+  <div class="simulado-bottom-bar" id="simulado-bottom-bar">
+    <div class="sim-progress-info">
+      <div style="font-weight: 700; font-size: 0.95rem;">
+        Progresso: <span id="bottom-bar-progress">0/36 respondidas</span>
+      </div>
+    </div>
+    <div style="display: flex; gap: 12px;">
+      <button class="btn btn-outline" onclick="window.confirmResetSimulado()">
+        Limpar Respostas
+      </button>
+      <button class="btn btn-primary" id="btn-finish-simulado" onclick="window.checkAndFinishSimulado(true)">
+        Finalizar e Ver Resultado 🏆
+      </button>
+    </div>
+  </div>
+
+</section>

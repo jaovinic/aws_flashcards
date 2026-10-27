@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
+import CategoryView from '../components/CategoryView.astro';
+import AllCardsView from '../components/AllCardsView.astro';
+import FavoritesView from '../components/FavoritesView.astro';
+import SimuladoView from '../components/SimuladoView.astro';
+import Modal from '../components/Modal.astro';
+---
+
+<Layout>
+  <Header />
+
+  <!-- APP LAYOUT -->
+  <div class="app-layout">
+    <Sidebar />
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content" id="main-content">
+      <CategoryView />
+      <AllCardsView />
+      <FavoritesView />
+      <SimuladoView />
+    </main>
+  </div>
+
+  <Modal />
+
+  <script>
+    import '../scripts/app';
+  </script>
+</Layout>

@@ -1,0 +1,132 @@
+---
+---
+<!-- VIEW 1: CATEGORY FLASHCARDS VIEW -->
+<section class="view-container active" id="view-category">
+  <div class="category-banner">
+    <div class="cat-domain-tag" id="cat-banner-domain">
+      💻 Computação & Contêineres
+    </div>
+    <h1 id="cat-banner-title">Conceitos de Computação AWS</h1>
+    <p class="cat-desc" id="cat-banner-desc">Clique nos cartões para virar e conferir as respostas técnicas.</p>
+    
+    <div class="cat-meta-row">
+      <div class="cat-stats">
+        <div class="cat-stats-item">
+          🗂️ Arquivo: <strong id="cat-banner-file">flashcards_AWS_EC2.html</strong>
+        </div>
+        <div class="cat-stats-item">
+          ⚡ Total: <strong id="cat-banner-count">6</strong> cartões
+        </div>
+        <div class="cat-stats-item">
+          ✓ Estudados: <strong id="cat-banner-studied-count">0</strong>/<span id="cat-banner-studied-total">6</span>
+        </div>
+      </div>
+      
+      <div class="cat-progress-bar-wrap" title="Progresso nesta categoria">
+        <div class="cat-progress-bar-fill" id="cat-banner-progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="view-toolbar">
+    <div class="toolbar-left">
+      <button class="btn" id="btn-mode-grid" onclick="window.setCategoryDisplayMode('grid')">
+        🔲 Modo Grade (Ver Todos)
+      </button>
+      <button class="btn" id="btn-mode-study" onclick="window.setCategoryDisplayMode('study')">
+        📖 Modo Estudo (1 a 1)
+      </button>
+      <button class="btn btn-outline" onclick="window.toggleFlipAllCurrentCards()">
+        🔄 Virar Todos
+      </button>
+      <button class="btn btn-outline" onclick="window.shuffleCurrentCategoryCards()">
+        🔀 Embaralhar
+      </button>
+    </div>
+
+    <div class="toolbar-right">
+      <button class="btn btn-outline" onclick="window.markAllCurrentCategoryStudied()">
+        ✓ Marcar Todos como Estudados
+      </button>
+    </div>
+  </div>
+
+  <!-- Grid of Flashcards -->
+  <div class="flashcards-grid" id="category-cards-grid">
+    <!-- Rendered dynamically -->
+  </div>
+
+  <!-- Study Carousel Mode -->
+  <div class="study-mode-container" id="category-study-container">
+    <div class="carousel-card-wrap">
+      <div class="flashcard" id="carousel-flashcard" onclick="window.flipCarouselCard()">
+        <!-- Front -->
+        <div class="card-face card-face-front">
+          <div class="card-top-row">
+            <span class="card-badge" id="carousel-badge-front">Pergunta</span>
+            <div class="card-quick-actions" onclick="event.stopPropagation()">
+              <button class="card-action-btn" id="carousel-btn-speak-front" onclick="window.speakCurrentCarouselCard('front')" title="Ouvir em voz alta">🔊</button>
+              <button class="card-action-btn" id="carousel-btn-fav" onclick="window.toggleFavoriteCurrentCarousel()" title="Favoritar">⭐</button>
+            </div>
+          </div>
+          <div class="card-main-content">
+            <div class="card-title" id="carousel-title">...</div>
+          </div>
+          <div class="card-bottom-row">
+            <span class="card-flip-hint">👆 Clique no cartão ou pressione [Espaço] para virar</span>
+            <button class="card-studied-toggle" id="carousel-btn-studied" onclick="window.toggleStudiedCurrentCarousel(event)">
+              ✓ Marcar como Estudado
+            </button>
+          </div>
+        </div>
+
+        <!-- Back -->
+        <div class="card-face card-face-back">
+          <div class="card-top-row">
+            <span class="card-badge" id="carousel-badge-back">Resposta Técnica</span>
+            <div class="card-quick-actions" onclick="event.stopPropagation()">
+              <button class="card-action-btn" id="carousel-btn-speak-back" onclick="window.speakCurrentCarouselCard('back')" title="Ouvir em voz alta">🔊</button>
+            </div>
+          </div>
+          <div class="card-main-content">
+            <div class="card-definition" id="carousel-def">...</div>
+          </div>
+          <div class="card-bottom-row">
+            <span class="card-flip-hint">👆 Clique para voltar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="carousel-controls">
+      <button class="carousel-btn" id="carousel-btn-prev" onclick="window.carouselPrevCard()">
+        ← Anterior
+      </button>
+      <div class="carousel-counter" id="carousel-counter">
+        1 / 6
+      </div>
+      <button class="carousel-btn" id="carousel-btn-next" onclick="window.carouselNextCard()">
+        Próximo →
+      </button>
+    </div>
+
+    <div class="carousel-hint-keys">
+      <span>Atalhos de Teclado:</span>
+      <span><span class="kbd">←</span> <span class="kbd">→</span> Navegar</span>
+      <span><span class="kbd">Espaço</span> ou <span class="kbd">Enter</span> Virar</span>
+      <span><span class="kbd">M</span> Marcar Estudado</span>
+      <span><span class="kbd">S</span> Favoritar</span>
+    </div>
+  </div>
+
+  <!-- Footer Category Navigation -->
+  <div class="cat-nav-footer">
+    <button class="btn btn-outline" id="btn-prev-category" onclick="window.navigateAdjacentCategory(-1)">
+      ← Categoria Anterior
+    </button>
+    <button class="btn btn-primary" id="btn-next-category" onclick="window.navigateAdjacentCategory(1)">
+      Próxima Categoria →
+    </button>
+  </div>
+</section>

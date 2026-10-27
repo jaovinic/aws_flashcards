@@ -1,0 +1,37 @@
+---
+---
+<!-- HEADER -->
+<header class="app-header">
+  <div class="brand" onclick="window.navigateToDashboard()">
+    <button class="mobile-menu-btn" onclick="window.toggleSidebar(event)" title="Abrir menu lateral">☰</button>
+    <div class="brand-logo">AWS</div>
+    <div class="brand-title">
+      Flashcards & Simulado
+      <span class="badge">Estudos</span>
+    </div>
+  </div>
+
+  <nav class="header-nav">
+    <button class="nav-tab-btn active" id="nav-btn-categories" onclick="window.navigateToCategoriesView()">
+      📂 Categorias
+    </button>
+    <button class="nav-tab-btn" id="nav-btn-allcards" onclick="window.navigateToAllCardsView()">
+      🔍 Todos os Cards <span class="badge-count">246</span>
+    </button>
+    <button class="nav-tab-btn" id="nav-btn-simulado" onclick="window.navigateToSimuladoView()">
+      📝 Simulado <span class="badge-count">36</span>
+    </button>
+    <button class="nav-tab-btn" id="nav-btn-favorites" onclick="window.navigateToFavoritesView()">
+      ⭐ Marcados (<span id="fav-count-badge">0</span>)
+    </button>
+  </nav>
+
+  <div class="header-actions">
+    <button class="btn-icon" onclick="window.toggleTheme()" id="theme-toggle-btn" title="Alternar tema claro/escuro">
+      🌓 Tema
+    </button>
+    <button class="btn-icon" onclick="window.resetAllProgressConfirm()" title="Resetar histórico de estudos">
+      🔄 Reset
+    </button>
+  </div>
+</header>

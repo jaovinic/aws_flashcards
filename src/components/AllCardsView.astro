@@ -1,0 +1,42 @@
+---
+---
+<!-- VIEW 2: ALL FLASHCARDS SEARCH VIEW -->
+<section class="view-container" id="view-allcards">
+  <div class="all-cards-header">
+    <h2>🔍 Todos os 246 Flashcards</h2>
+    <p style="color: var(--text-muted); margin-top: 6px;">Pesquise em todo o conteúdo de todos os 38 arquivos HTML simultaneamente.</p>
+    
+    <div class="search-filter-bar">
+      <div class="search-input-wrap">
+        <span class="icon">🔍</span>
+        <input type="text" id="global-search-input" placeholder="Pesquisar por conceito, tecnologia, sigla, definição..." oninput="window.filterAllCards()">
+      </div>
+      
+      <select class="filter-select" id="global-domain-filter" onchange="window.filterAllCards()">
+        <option value="all">Todos os Domínios (7)</option>
+        <option value="Computação & Contêineres">💻 Computação & Contêineres</option>
+        <option value="Armazenamento & Banco de Dados">💾 Armazenamento & Banco de Dados</option>
+        <option value="Redes & Entrega de Conteúdo">🌐 Redes & Entrega de Conteúdo</option>
+        <option value="Segurança, IAM & Governança">🔒 Segurança, IAM & Governança</option>
+        <option value="Gerenciamento, SysOps & Automação">🛠️ Gerenciamento, SysOps & Automação</option>
+        <option value="Frameworks & Melhores Práticas">📐 Frameworks & Melhores Práticas</option>
+        <option value="Custos & Faturamento">💰 Custos & Faturamento</option>
+      </select>
+
+      <select class="filter-select" id="global-status-filter" onchange="window.filterAllCards()">
+        <option value="all">Todos os Status</option>
+        <option value="studied">Apenas Já Estudados</option>
+        <option value="pending">Apenas Pendentes</option>
+        <option value="favorites">Apenas Marcados ⭐</option>
+      </select>
+    </div>
+    
+    <div style="margin-top: 14px; font-size: 0.85rem; color: var(--text-muted);" id="global-search-results-info">
+      Mostrando 246 cartões
+    </div>
+  </div>
+
+  <div class="flashcards-grid" id="all-cards-grid">
+    <!-- Rendered dynamically -->
+  </div>
+</section>
