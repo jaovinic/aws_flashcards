@@ -22,11 +22,11 @@ Uma aplicação web interativa, moderna e 100% estática construída com **Astro
 
 O **AWS Flashcards Hub** reúne em um único lugar mais de duas centenas de cartões de memorização técnica e um simulado de avaliação de conhecimentos com correção instantânea, funcionando totalmente no navegador (client-side), sem envio de dados a servidores externos.
 
-```
+```text
 ┌────────────────────────────────────────────────────────────────────────┐
 │                        AWS FLASHCARDS HUB                              │
 ├───────────────────┬───────────────────────────────┬────────────────────┤
-│  📂 CATEGORIAS    │  🔍 BUSCA GLOBAL             │  📝 SIMULADO       │
+│  📂 CATEGORIAS    │  🔍 BUSCA GLOBAL              │  📝 SIMULADO       │
 │  38 módulos em    │  Pesquisa em tempo real       │  50 questões com   │
 │  7 domínios       │  por termos, siglas e serviços│  gabarito e tempo  │
 └───────────────────┴───────────────────────────────┴────────────────────┘
